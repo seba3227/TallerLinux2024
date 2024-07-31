@@ -5,10 +5,29 @@
   user: sysadmin
 
   tasks:
-  - name: Inatalar apache
+  
+  - name: Instalar apache
     ansible.builtin.dnf:
       name: httpd
-      state:  present
+      state: present
 
-  - name: Configurar virtualhosts
-    
+  - name: Configurar virtualhost
+    ansible.builtin.copy:
+      src: ./files/virtualhodt.conf
+      dest: /etc/httpd/conf.d
+    notify: Reiniciar apache
+
+  - name: Crear directorio document root
+    ansible.builtin.file:
+      path: /var/www/ejemplo/html
+      state: directory
+      mode: '0755'
+      owner: apache
+      group: apache
+
+  handlers:
+  
+  - name: Reiniciar apache
+    ansible.builtin.systemd_service:
+      name: httpd
+      state: restarted
