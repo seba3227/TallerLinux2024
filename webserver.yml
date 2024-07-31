@@ -1,0 +1,14 @@
+---
+- name: Instalar y configurar un webserver
+  hosts: centos
+  become: yes
+  user: sysadmin
+
+  tasks:
+  - name: Inatalar apache
+    ansible.builtin.dnf:
+      name: httpd
+      state:  present
+
+  - name: Configurar virtualhosts
+    
