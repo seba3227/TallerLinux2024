@@ -13,8 +13,8 @@
 
   - name: Permitir puerto 22 en ufw
     community.general.ufw:
-    rule: allow
-    name: OpenSSH
+      rule: allow
+      name: OpenSSH
 
   - name: Defino politicas de trafico entrante
     community.general.ufw:
